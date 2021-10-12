@@ -9,7 +9,7 @@ function App(): JSX.Element {
                 <img src={logo} className="App-logo" alt="logo" />
                 UD CIS Scheduler
                 <p>
-                    Lufeng Chen.
+                    Chen,Lufeng  Wei,Yuxing.
                 </p>
             </header>
         </div>
