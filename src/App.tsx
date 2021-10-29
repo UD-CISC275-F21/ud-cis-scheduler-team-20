@@ -26,7 +26,7 @@ const App = () => {
     const S3Data = [
         {Smester:"3", Course: "CISC220", Description: "Data Structures", Credit: "3", Grade: "standard", status: "finished"},
         {Smester:"3", Course: "CISC260", Description: "Machine Org. & Assembly Language", Credit: "3", Grade: "standard", status: "finished"},
-        {Smester:"3", Course: "MATH210", Description: "Discrete Mathematics I", Credit: "3", Grade: "standard", status: "finished"},
+        {Smester:"3", Course: "MATH210", Description: "Discrete Mathematics I", Credit: "3", Grade: "pass and fail", status: "finished"},
         {Smester:"3", Course: "LAB Science 2", Description: "Laboratory Science 2", Credit: "4", Grade: "standard", status: "finished"},
         {Smester:"3", Course: "BRE 3", Description: "Breadth Requirement Elective 3", Credit: "3", Grade: "standard", status: "finished"},
     ];
