@@ -43,7 +43,7 @@ const App = () => {
         {Smester:"4", Course: "CISC320", Description: "Introduction to Algorithms", Credit: "3", Grade: "standard", status: "finished"},
         {Smester:"4", Course: "CISC361", Description: "Operating Systems", Credit: "3", Grade: "standard", status: "finished"},
         {Smester:"4", Course: "CISC304", Description: "Logic and Programming", Credit: "3", Grade: "standard", status: "finished"},
-        {Smester:"4", Course: "CE1", Description: "Concentration Elective 1", Credit: "3", Grade: "standard", status: "finished"},
+        {Smester:"4", Course: "CE1", Description: "Concentration Elective 1", Credit: "3", Grade: "standard", status: "unpassed"},
         {Smester:"4", Course: "GE1", Description: "General Elective 1", Credit: "3", Grade: "standard", status: "finished"},
     ];
     
