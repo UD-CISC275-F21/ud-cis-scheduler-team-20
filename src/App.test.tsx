@@ -1,11 +1,8 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import App from "./App";
+import React from 'react'
+import {render} from '@testing-library/react'
 
-test("renders UD CIS Scheduler text", () => {
-    render(<App />);
-    const linkElement = screen.getByText(/UD CIS Scheduler/i);
-    expect(linkElement).toBeInTheDocument();
-});
+const HelloWorld = () => <h1>Hello World</h1>
+const {debug} = render(<HelloWorld />)
+debug()
 
 
