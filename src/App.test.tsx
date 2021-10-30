@@ -1,14 +1,9 @@
+import React from "react";
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-// Button.react.js
-import React from 'react';
-
-class Button extends React.Component {
-  render() {
-    return (
-      <button className="btn">
-        
-      </button>
-    );
-  };
-};
-export default Button;
+test("AgGridReact", () => {
+    render(<App />);
+    const linkElement = screen.getByText(/AgGridReact/i);
+    expect(linkElement).toBeInTheDocument();
+});
