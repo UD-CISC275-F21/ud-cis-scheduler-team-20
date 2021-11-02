@@ -2,8 +2,8 @@ import React from "react";
 import { render, screen } from "@testing-library/react";
 import App from "./App";
 
-test("AgGridReact", () => {
+test("is there any semester", () => {
     render(<App />);
-    const linkElement = screen.getByText(/AgGridReact/i);
-    expect(linkElement).toBeInTheDocument();
+    const Semester = screen.getByText(/semester/i);
+    expect(Semester).toBeInTheDocument();
 });
