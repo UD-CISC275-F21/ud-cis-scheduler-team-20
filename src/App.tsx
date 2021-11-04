@@ -72,7 +72,7 @@ const App = () => {
 
     return (
         <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
-            Semester 1
+            Semester1
             <AgGridReact
                 rowData={rowData} columnDefs={columns}/>
             <br></br>
