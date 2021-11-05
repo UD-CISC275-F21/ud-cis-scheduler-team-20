@@ -79,14 +79,11 @@ const App = () => {
         <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
             <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
             {
-                
                 show?
-                    
                     <AgGridReact
                         rowData={rowData} columnDefs={columns} />
                     
                     :null
-
             }
             {
                 show?
