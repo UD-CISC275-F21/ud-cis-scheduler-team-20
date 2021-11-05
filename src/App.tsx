@@ -33,8 +33,6 @@ const App = () => {
     ]);
     const [show,setshow] = useState(true);
 
-    const [semesterLevel,setSemesterLever] = useState(["Semester1","Semester2","Semester3"]);
-
     const actionButton = (params:any)=>{
         const semesterid = params.data["id"];
         if (semesterid == 0){
