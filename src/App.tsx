@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {AgGridReact} from "ag-grid-react";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
+
+
 const App = () => {
+    
     
     const [rowData,setRowData] = useState([
         {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
@@ -22,12 +25,15 @@ const App = () => {
         {id:1,Course: "BRE1", Credit: "3",Name:"Breath2",Plan:"Take Care"},
     ]);
     const [rowData2,setRowData2] = useState([
-        {id:2,Course: "EGGG103", Credit: "2",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course: "CISC110", Credit: "3",Name:"Computer Science110",Plan:"Take Care"},
-        {id:2,Course: "MATH243", Credit: "4",Name:"Mathematic243",Plan:"Take Care"},
-        {id:2,Course: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
+        {id:2,Course2: "EGGG103", Credit: "2",Name:"engineer103",Plan:"Take Care"},
+        {id:2,Course2: "CISC110", Credit: "3",Name:"Computer Science110",Plan:"Take Care"},
+        {id:2,Course2: "MATH243", Credit: "4",Name:"Mathematic243",Plan:"Take Care"},
+        {id:2,Course2: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
+        {id:2,Course2: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
     ]);
+    const [show,setshow] = useState(true);
+
+    const [semesterLevel,setSemesterLever] = useState(["Semester1","Semester2","Semester3"]);
 
     const actionButton = (params:any)=>{
         const semesterid = params.data["id"];
@@ -47,42 +53,56 @@ const App = () => {
             });
         }
     };
-    
     const columns = [
         {
-            headerName:"course",field:"Course",sortable:true
+            headerName:"course",field:"Course",sortable:true,
         },
         {
-            headerName:"credit",field:"Credit",sortable:true
+            headerName:"credit",field:"Credit",sortable:true,
         },
         {
-            headerName:"name",field:"Name",sortable:true,editable:true
+            headerName:"name",field:"Name",sortable:true,editable:true,
         },
         {
-            headerName:"plan",field:"Plan",sortable:true,editable:true
+            headerName:"plan",field:"Plan",sortable:true,editable:true,
         },
         {
             headerName:"action",
             field:"Action",
             cellRendererFramework: (params:any) =><div>
                 <button onClick={()=>actionButton(params)}>Delete</button>
-            </div>
+            </div>,
+            
         },
     ];
 
     return (
+        
         <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
-            Semester 1
-            <AgGridReact
-                rowData={rowData} columnDefs={columns}/>
-            <br></br>
-            Semester2
-            <AgGridReact
-                rowData={rowData1} columnDefs={columns}/>
-            <br></br>    
-            Semester3
-            <AgGridReact
-                rowData={rowData2} columnDefs={columns}/>           
+            <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
+            {
+                
+                show?
+                    
+                    <AgGridReact
+                        rowData={rowData} columnDefs={columns} />
+                    
+                    :null
+
+            }
+            {
+                show?
+                   
+                    <AgGridReact
+                        rowData={rowData1} columnDefs={columns}/>
+                    :null
+            }
+            {
+                show?
+                    <AgGridReact
+                        rowData={rowData2} columnDefs={columns}/>
+                    :null
+            }   
         </div>
     );
 };
