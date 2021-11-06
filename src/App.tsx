@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {AgGridReact} from "ag-grid-react";
+import {Alert, Button} from "react-bootstrap";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
@@ -32,6 +34,7 @@ const App = () => {
         {id:2,Course2: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
     ]);
     const [show,setshow] = useState(true);
+    const [show1, setShow1] = useState(true);
 
     const actionButton = (params:any)=>{
         const semesterid = params.data["id"];
@@ -75,29 +78,52 @@ const App = () => {
     ];
 
     return (
-        
-        <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
-            <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
-            {
-                show?
-                    <AgGridReact
-                        rowData={rowData} columnDefs={columns} />
-                    
-                    :null
-            }
-            {
-                show?
+        <div className="container">
+            <div>
+                <button
+                    style={{ marginBottom: "5px", fontWeight: "bold" }}
+                >
+                Export to Excel
+                </button>
+            </div>
+            <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
+                <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
+                {
+                    show?
+                        <AgGridReact
+                            rowData={rowData} columnDefs={columns} />
+                        :null
+                }
+                {
+                    show?
                    
-                    <AgGridReact
-                        rowData={rowData1} columnDefs={columns}/>
-                    :null
-            }
-            {
-                show?
-                    <AgGridReact
-                        rowData={rowData2} columnDefs={columns}/>
-                    :null
-            }   
+                        <AgGridReact
+                            rowData={rowData1} columnDefs={columns}/>
+                        :null
+                }
+                {
+                    show?
+                        <AgGridReact
+                            rowData={rowData2} columnDefs={columns}/>
+                        :null
+                }   
+            </div>
+            <>
+                <Alert show={show1} variant="success">
+                    <Alert.Heading>Hello There!</Alert.Heading>
+                    <p>
+                        Thank you for using our website. The current version is the default semester plan, and you can graduate in 4 academic years if things go well. 
+                        If it is different from the actual situation, you need to edit it manually. The site currently offers deletion functionality.
+                    </p>
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <Button onClick={() => setShow1(false)} variant="outline-success">
+                            Got!
+                        </Button>
+                    </div>
+                </Alert>
+                {!show && <Button onClick={() => setShow1(true)}>Show Alert</Button>}
+            </>
         </div>
     );
 };
