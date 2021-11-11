@@ -27,11 +27,11 @@ const App = () => {
         {id:1,Course: "BRE1", Credit: "3",Name:"Breath2",Plan:"Take Care"},
     ]);
     const [rowData2,setRowData2] = useState([
-        {id:2,Course2: "EGGG103", Credit: "2",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course2: "CISC110", Credit: "3",Name:"Computer Science110",Plan:"Take Care"},
-        {id:2,Course2: "MATH243", Credit: "4",Name:"Mathematic243",Plan:"Take Care"},
-        {id:2,Course2: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course2: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
+        {id:2,Course: "EGGG103", Credit: "2",Name:"engineer103",Plan:"Take Care"},
+        {id:2,Course: "CISC110", Credit: "3",Name:"Computer Science110",Plan:"Take Care"},
+        {id:2,Course: "MATH243", Credit: "4",Name:"Mathematic243",Plan:"Take Care"},
+        {id:2,Course: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
+        {id:2,Course: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
     ]);
     const [show,setshow] = useState(true);
     const [show1, setShow1] = useState(true);
