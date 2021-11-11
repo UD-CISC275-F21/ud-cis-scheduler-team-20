@@ -9,9 +9,9 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
 
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = () => {
-    
-    
+       
     const [rowData,setRowData] = useState([
         {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
         {id:0,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care"},
@@ -36,7 +36,7 @@ const App = () => {
     const [show,setshow] = useState(true);
     const [show1, setShow1] = useState(true);
 
-    const actionButton = (params:any)=>{
+    const actionButton = (params: { data: { [x: string]: unknown; id?: number; Course?: string; Credit?: string; Name?: string; Plan?: string; Course2?: string; }; })=>{
         const semesterid = params.data["id"];
         if (semesterid == 0){
             setRowData((prevData)=>{
@@ -70,22 +70,16 @@ const App = () => {
         {
             headerName:"action",
             field:"Action",
-            cellRendererFramework: (params:any) =><div>
+            cellRendererFramework: (params: { data: { [x: string]: unknown; id?: number | undefined; Course?: string | undefined; Credit?: string | undefined; Name?: string | undefined; Plan?: string | undefined; Course2?: string | undefined; }; }) =><div>
                 <button onClick={()=>actionButton(params)}>Delete</button>
             </div>,
             
         },
     ];
 
+
     return (
         <div className="container">
-            <div>
-                <button
-                    style={{ marginBottom: "5px", fontWeight: "bold" }}
-                >
-                Export to Excel
-                </button>
-            </div>
             <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
                 <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
                 {
@@ -129,3 +123,4 @@ const App = () => {
 };
 
 export default App;
+
