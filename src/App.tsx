@@ -11,30 +11,9 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const App = () => {
-       
-    const [rowData,setRowData] = useState([
-        {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
-        {id:0,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care"},
-        {id:0,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care"},
-        {id:0,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care"},
-        {id:0,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care"},
-    ]);
-    const [rowData1,setRowData1] = useState([
-        {id:1,Course: "EGGG102", Credit: "2",Name:"engineer102",Plan:"Take Care"},
-        {id:1,Course: "CISC109", Credit: "3",Name:"Computer Science109",Plan:"Take Care"},
-        {id:1,Course: "MATH242", Credit: "4",Name:"Mathematic242",Plan:"Take Care"},
-        {id:1,Course: "ENGL102", Credit: "3",Name:"engineer102",Plan:"Take Care"},
-        {id:1,Course: "BRE1", Credit: "3",Name:"Breath2",Plan:"Take Care"},
-    ]);
-    const [rowData2,setRowData2] = useState([
-        {id:2,Course: "EGGG103", Credit: "2",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course: "CISC110", Credit: "3",Name:"Computer Science110",Plan:"Take Care"},
-        {id:2,Course: "MATH243", Credit: "4",Name:"Mathematic243",Plan:"Take Care"},
-        {id:2,Course: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
-        {id:2,Course: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
-    ]);
+const App = () => {   
     
+
     const columns = [
         {
             headerName:"course",field:"Course",sortable:true,
@@ -74,48 +53,93 @@ const App = () => {
     
     const [show1, setShow1] = useState(true);
 
-    const actionButton = (params: { data: { [x: string]: unknown; id?: number; Course?: string; Credit?: string; Name?: string; Plan?: string; Course2?: string; }; })=>{
-        const semesterid = params.data["id"];
-        if (semesterid == 0){
-            setRowData((prevData)=>{
-                return prevData.filter(param => param != params.data );
-            });
+    const [newData,setNewData] = useState([
+        {
+            "rowData":[
+                {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
+                {id:0,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care"},
+                {id:0,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care"},
+                {id:0,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care"},
+                {id:0,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care"},
+            ], 
+        },
+        {
+            "rowData":[
+                {id:1,Course: "EGGG102", Credit: "2",Name:"engineer102",Plan:"Take Care"},
+                {id:1,Course: "CISC109", Credit: "3",Name:"Computer Science109",Plan:"Take Care"},
+                {id:1,Course: "MATH242", Credit: "4",Name:"Mathematic242",Plan:"Take Care"},
+                {id:1,Course: "ENGL102", Credit: "3",Name:"engineer102",Plan:"Take Care"},
+                {id:1,Course: "BRE1", Credit: "3",Name:"Breath2",Plan:"Take Care"},
+            ]
         }
-        if (semesterid == 1){
-            setRowData1((prevData)=>{
-                return prevData.filter(param => param != params.data );
+    ]);
+
+    const [rowDataIndex,setRowDataIndex] = useState(0);
+    const [rowIndex,setRowIndex] = useState(0);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const actionButton = (params:any)=>{
+        console.log(params.data);
+        newData.forEach((value,index)=>{
+            console.log(value);
+            value.rowData.forEach((value1,index1)=>{
+                if (value1 == params.data){
+                    const newIndex = JSON.parse(JSON.stringify(index));
+                    const newIndex1 = JSON.parse(JSON.stringify(index1));
+                    setRowDataIndex(newIndex);
+                    setRowIndex(newIndex1);
+                }
             });
-        }
-        if (semesterid == 2){
-            setRowData2((prevData)=>{
-                return prevData.filter(param => param != params.data );
-            });
-        }
+        });
+        const newData2 = JSON.parse(JSON.stringify(newData));
+        
+        newData2[rowDataIndex]["rowData"].splice(rowIndex,1);
+        setNewData(newData2);
+        console.log(rowDataIndex);
+        console.log(rowIndex);
     };
+
+    const addArow = (index: number) => {
+        const newCourse = {id:index,Course: "", Credit: "",Name:"",Plan:""};
+        console.log(newCourse);
+        const tmpNewData = JSON.parse(JSON.stringify(newData));
+        tmpNewData[index].rowData.push(newCourse);
+        console.log(tmpNewData[index]);
+        setNewData(tmpNewData);
+        
+    };
+
+    const addAsemester = () =>{
+        const tmpNewData = JSON.parse(JSON.stringify(newData));
+        const newSemester = {rowData:[]};
+        tmpNewData.push(newSemester);
+        setNewData(tmpNewData);
+    };
+
+
 
     return (
         <div className="container">
-            <div className="ag-theme-alpine" style={{height: 400, width: 1200}}>
+            <div>
                 <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
+                <button onClick = {() => addAsemester()}>add newSemester</button>
                 {
                     show?
-                        <AgGridReact
-                            rowData={rowData} columnDefs={columns} />
+                        newData.map((value,index) => 
+                            <div key = {index}>
+                             
+                                <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
+                                 
+                                    <AgGridReact rowData={value.rowData} columnDefs={columns}/>
+                                 
+                                </div>
+                             
+                                <button onClick = {()=>addArow(index)}>addRow</button>
+                            </div>
+                        )
                         :null
+                
                 }
-                {
-                    show?
-                   
-                        <AgGridReact
-                            rowData={rowData1} columnDefs={columns}/>
-                        :null
-                }
-                {
-                    show?
-                        <AgGridReact
-                            rowData={rowData2} columnDefs={columns}/>
-                        :null
-                }   
             </div>
             <>
                 <Alert show={show1} variant="success">
