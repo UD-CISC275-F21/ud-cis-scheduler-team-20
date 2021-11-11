@@ -1,11 +1,12 @@
 import React, {useState} from "react";
 import {AgGridReact} from "ag-grid-react";
-import {Alert, Button} from "react-bootstrap";
+import {Alert, Button, FormControl} from "react-bootstrap";
+import InputGroup from "react-bootstrap/InputGroup";
+
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-
 
 
 
@@ -33,7 +34,44 @@ const App = () => {
         {id:2,Course: "ENGL103", Credit: "3",Name:"engineer103",Plan:"Take Care"},
         {id:2,Course: "BRE2", Credit: "3",Name:"Breath3",Plan:"Take Care"},
     ]);
+    
+    const columns = [
+        {
+            headerName:"course",field:"Course",sortable:true,
+        },
+        {
+            headerName:"credit",field:"Credit",sortable:true,
+        },
+        {
+            headerName:"name",field:"Name",sortable:true,editable:true,
+        },
+        {
+            headerName:"plan",field:"Plan",sortable:true,editable:true,
+        },
+        {
+            headerName:"degree requirement",
+            field:"DR",
+            cellRendererFramework: (params: { data: { [x: string]: unknown; id?: number | undefined; Course?: string | undefined; Credit?: string | undefined; Name?: string | undefined; Plan?: string | undefined; Course2?: string | undefined; }; }) =>
+                <div>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Checkbox aria-label="Checkbox for following text input" />
+                        <FormControl aria-label="Text input with checkbox" />
+                    </InputGroup>
+                    <button onClick={()=>actionButton(params)}>Delete</button>
+                </div>,
+        },
+        {
+            headerName:"action",
+            field:"Action",
+            cellRendererFramework: (params: { data: { [x: string]: unknown; id?: number | undefined; Course?: string | undefined; Credit?: string | undefined; Name?: string | undefined; Plan?: string | undefined; Course2?: string | undefined; }; }) =>
+                <div>
+                    <button onClick={()=>actionButton(params)}>Delete</button>
+                </div>,
+        },
+    ];
+
     const [show,setshow] = useState(true);
+    
     const [show1, setShow1] = useState(true);
 
     const actionButton = (params: { data: { [x: string]: unknown; id?: number; Course?: string; Credit?: string; Name?: string; Plan?: string; Course2?: string; }; })=>{
@@ -54,33 +92,10 @@ const App = () => {
             });
         }
     };
-    const columns = [
-        {
-            headerName:"course",field:"Course",sortable:true,
-        },
-        {
-            headerName:"credit",field:"Credit",sortable:true,
-        },
-        {
-            headerName:"name",field:"Name",sortable:true,editable:true,
-        },
-        {
-            headerName:"plan",field:"Plan",sortable:true,editable:true,
-        },
-        {
-            headerName:"action",
-            field:"Action",
-            cellRendererFramework: (params: { data: { [x: string]: unknown; id?: number | undefined; Course?: string | undefined; Credit?: string | undefined; Name?: string | undefined; Plan?: string | undefined; Course2?: string | undefined; }; }) =><div>
-                <button onClick={()=>actionButton(params)}>Delete</button>
-            </div>,
-            
-        },
-    ];
-
 
     return (
         <div className="container">
-            <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
+            <div className="ag-theme-alpine" style={{height: 400, width: 1200}}>
                 <button onClick={()=>setshow(false)}>Clear All Semester</button> <button onClick={()=>setshow(true)}>Show All Semester</button>
                 {
                     show?
