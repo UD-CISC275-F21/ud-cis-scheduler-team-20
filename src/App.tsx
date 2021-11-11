@@ -146,7 +146,7 @@ const App = () => {
                     <Alert.Heading>Hello There!</Alert.Heading>
                     <p>
                         Thank you for using our website. The current version is the default semester plan, and you can graduate in 4 academic years if things go well. 
-                        If it is different from the actual situation, you need to edit it manually. The site currently offers deletion functionality.
+                        If it is different from the actual situation, you need to edit it manually. This site currently offers adding course semester and deletion functionality.
                     </p>
                     <hr />
                     <div className="d-flex justify-content-end">
