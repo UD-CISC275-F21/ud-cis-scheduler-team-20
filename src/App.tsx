@@ -11,9 +11,6 @@ import { TypeOfTag } from "typescript";
 
 
 const App = () => {
-    // const Change = (indexPair : number[]) =>{
-    //     console.log(indexPair);
-    // };
     
 
     const [newData,setNewData] = useState([
@@ -32,29 +29,7 @@ const App = () => {
     const [flag,setFlag] = useState(false);
     const [show,setshow] = useState(false);
     const [data,setData] = useState([] );
-    // useEffect(()=>{
-        
-    //     const pair1 = JSON.parse(JSON.stringify(pair));
-    //     const index1 = pair1[0];
-    //     const index = pair1[1];
-        
-    //     // if (flag == true){
-    //     console.log("in useEffec",pair);
-    //     console.log(index1);
-    //     console.log(index);
-    //     const newData2 :typeof newData= JSON.parse(JSON.stringify(newData));
-    
-    //     newData2[index1]["rowData"].splice(index,1);
-    //     console.log(newData[0]) ;
-    //     console.log(newData2[0]);
-    //     setNewData(newData2);
-        
-            
-            
-    //     // }
-        
-    //     setFlag(false);
-    // },[flag]);
+
     useEffect(()=>{
         console.log("in useeffect",newData);
         setNewData(newData);
@@ -78,31 +53,9 @@ const App = () => {
     const actionButton = (params:any)=>{
         
         
-        // newData.forEach((value,index)=>{
-            
-        //     value.rowData.forEach((value1,index1)=>{
-        //         if (value1 == params.data){
-        //             console.log(value1);
-        //             console.log(index);
-        //             console.log(index1);
-        //             setRowDataIndex(JSON.parse(JSON.stringify(index)));
-        //             setRowIndex(index1);
-        //             console.log("aaaa",rowDataIndex);
-                    
-        //             // const newData2 = JSON.parse(JSON.stringify(newData));
-        
-        //             // newData2[index]["rowData"].splice(index,1);
-        //             // setNewData(newData2);
-                    
-        //         }
-        //     });
-        
-
-        // });
         console.log(newData);
         const indexNumber = getIndex(newData,params) as number[] ;
         console.log(indexNumber);
-        // Change(indexNumber);
         console.log("before",newData);
         const index1 = indexNumber[0];
         const index = indexNumber[1];
@@ -121,23 +74,6 @@ const App = () => {
             const newData3 :typeof newData= JSON.parse(JSON.stringify(newData));
             console.log("data3",newData3);
         }
-        
-        
-        
-
-        // const newData2 = JSON.parse(JSON.stringify(newData));
-        
-        // newData2[index1]["rowData"].splice(index,1);
-        // setNewData(newData2);
-        // setTimeout(()=>{/*Your Code*/
-        //     const newData2 = JSON.parse(JSON.stringify(newData));
-        
-        //     newData2[rowDataIndex]["rowData"].splice(rowIndex,1);
-        //     setNewData(newData2);
-        //     console.log(rowDataIndex);
-        //     console.log(rowIndex);
-        // }, 3000);
-        
         
        
     };
