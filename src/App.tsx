@@ -177,7 +177,7 @@ const App = () => {
                         </Button>
                     </div>
                 </Alert>
-                {!show && <Button onClick={() => setShow1(true)}>Guide</Button>}
+                {!show && <Button onClick={() => setShow1(true)}>Web Guide</Button>}
             </>
         </div>
     );
