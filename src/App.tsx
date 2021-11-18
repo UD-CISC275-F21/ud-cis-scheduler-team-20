@@ -23,7 +23,10 @@ const App = () => {
        
     ]);
 
+    const [pair,setPair] = useState([0,1]);
+    const [flag,setFlag] = useState(false);    
     const [show,setshow] = useState(false);
+    const [data,setData] = useState([] );
     // useEffect(()=>{
         
     //     const pair1 = JSON.parse(JSON.stringify(pair));
