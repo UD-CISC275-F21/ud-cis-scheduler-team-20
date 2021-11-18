@@ -176,7 +176,7 @@ const App = () => {
                     <p>
                         Thank you for using our website. The current version is the default semester plan, and you can graduate in 4 academic years if things go well. 
                         If it is different from the actual situation, you need to edit it manually. This site currently offers adding course semesters and deletion functionality.
-                        And you can drag courses in the same table.
+                        And you can drag courses in the same table. You can clear all semester and courses.
                     </p>
                     <hr />
                     <div className="d-flex justify-content-end">
