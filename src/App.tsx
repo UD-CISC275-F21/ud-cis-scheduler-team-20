@@ -122,6 +122,12 @@ const App = () => {
         setNewData(JsonData);
         console.log(newData);
     };
+
+    const clearAllCourse = (index:number)=>{
+        const tmpNewData = JSON.parse(JSON.stringify(newData));
+        tmpNewData[index].rowData = [];
+        setNewData(tmpNewData);
+    };
     
     const [show1, setShow1] = useState(true);
 
@@ -142,6 +148,7 @@ const App = () => {
                             </div>
                             
                             <button onClick = {()=>addArow(index)} style={{marginLeft:350}}>AddCourse</button>
+                            <button onClick={()=>clearAllCourse(index)}>clear All Course</button>
                             
                         </div>
     
@@ -178,7 +185,7 @@ const App = () => {
                         </Button>
                     </div>
                 </Alert>
-                {!show && <Button onClick={() => setShow1(true)}>Announcement</Button>}
+                {!show && <Button onClick={() => setShow1(true)}>Guide</Button>}
             </>
         </div>
     );
