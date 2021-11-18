@@ -18,15 +18,14 @@ const App = () => {
 
     const [newData,setNewData] = useState([
         {
-
+            "rowData":[
+                {id:0,Course: "", Credit: "",Name:"",Plan:""},
+            ], 
         },
        
     ]);
 
-    const [pair,setPair] = useState([0,1]);
-    const [flag,setFlag] = useState(false);    
     const [show,setshow] = useState(false);
-    const [data,setData] = useState([] );
     // useEffect(()=>{
         
     //     const pair1 = JSON.parse(JSON.stringify(pair));
@@ -54,12 +53,11 @@ const App = () => {
         console.log("in useeffect",newData);
         setNewData(newData);
     });
-
-    const [rowDataIndex,setRowDataIndex] = useState(0);
-    const [rowIndex,setRowIndex] = useState(0);
     
+
     function getIndex(abc:typeof newData,params:any){
         for (let i=0;i<abc.length;i++){
+            
             for(let j = 0;j<abc[i].rowData.length;j++){
                 if (abc[i].rowData[j]==params.data){
                     return [i,j] ;
