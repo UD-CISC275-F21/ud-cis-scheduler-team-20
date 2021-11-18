@@ -55,7 +55,7 @@ const App = () => {
     });
     
 
-    function getIndex(abc:typeof newData,params:any){
+    function getIndex(abc:typeof newData,params:{data:{id:number;Course:string;Credit:string;Name:string;Plan:string};}){
         for (let i=0;i<abc.length;i++){
             
             for(let j = 0;j<abc[i].rowData.length;j++){
@@ -67,7 +67,7 @@ const App = () => {
     }
     
     
-    const actionButton = (params:any)=>{
+    const actionButton = (params:{data:{id:number;Course:string;Credit:string;Name:string;Plan:string};})=>{
         
         
         // newData.forEach((value,index)=>{
