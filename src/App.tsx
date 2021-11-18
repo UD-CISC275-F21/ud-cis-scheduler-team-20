@@ -10,7 +10,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
 
-const App = (): any => {
+const App = () => {
     // const Change = (indexPair : number[]) =>{
     //     console.log(indexPair);
     // };
