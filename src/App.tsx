@@ -1,6 +1,8 @@
 import React, {useState,useEffect} from "react";
 import {AgGridReact} from "ag-grid-react";
+import { Alert, Button } from "react-bootstrap";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
@@ -9,7 +11,7 @@ import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
 
 
-
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = () => {
 
     
