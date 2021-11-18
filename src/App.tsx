@@ -167,7 +167,7 @@ const App = () => {
         {
             headerName:"action",
             field:"Action",
-            cellRendererFramework: (params:any) =><div>
+            cellRendererFramework: (params:{data:{id:number;Course:string;Credit:string;Name:string;Plan:string};}) =><div>
                 <button onClick={()=>actionButton(params)}>Delete</button>
             </div>,
             
