@@ -18,13 +18,7 @@ const App = () => {
 
     const [newData,setNewData] = useState([
         {
-            "rowData":[
-                {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
-                {id:0,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care"},
-                {id:0,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care"},
-                {id:0,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care"},
-                {id:0,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care"},
-            ], 
+
         },
        
     ]);
