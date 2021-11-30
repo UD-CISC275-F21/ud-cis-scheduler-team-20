@@ -1,12 +1,12 @@
 import React, {useState,useEffect} from "react";
 import {AgGridReact} from "ag-grid-react";
-import { Alert, Button } from "react-bootstrap";
-
+import { Alert, Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 
-
+import FileSaver from "file-saver";
+import Papa from "papaparse";
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
@@ -15,11 +15,11 @@ const App = () => {
     const [newData,setNewData] = useState([
         {
             "rowData":[
-                {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care"},
-                {id:0,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care"},
-                {id:0,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care"},
-                {id:0,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care"},
-                {id:0,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care"},
+                {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
+                {id:1,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care",DegreeRequire:"CISC",Presuit:"CISC100"},
+                {id:2,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care",DegreeRequire:"Other",Presuit:"LAB"},
+                {id:3,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
+                {id:4,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care",DegreeRequire:"Other",Presuit:"BRE"},
             ], 
         },
        
@@ -82,6 +82,8 @@ const App = () => {
         setNewData(tmpNewData);
     };
 
+
+
     const columns = [
         {
             headerName:"course",field:"Course",sortable:true,editable:true, rowDrag:true
@@ -94,6 +96,19 @@ const App = () => {
         },
         {
             headerName:"plan",field:"Plan",sortable:true,editable:true,
+        },
+        {
+            field: "DegreeRequire",
+            editable:true,
+            cellEditor: "agRichSelectCellEditor",
+            cellEditorParams: {
+                values: ["CISC", "Other"],
+            },
+        },
+        {
+            field: "Presuit",
+            editable:true,
+            cellEditor: "agRichSelectCellEditor",
         },
         {
             headerName:"action",
@@ -131,8 +146,89 @@ const App = () => {
     
     const [show1, setShow1] = useState(true);
 
+    const exportData = (index:number)=>{
+        const nowData = newData[index].rowData;
+        let str = "";
+        str += "id"+ "," + "Course" + "," + "Credit" + "," +  "Name" + "," + "Plan" + "," + "DegreeRequire" + "," + "Presuit";
+        for(let i = 0; i < nowData.length; i++){
+            str += "\n" + 
+                    nowData[i].id + "," +
+                    nowData[i].Course + "," +
+                    nowData[i].Credit + "," +
+                    nowData[i].Name + "," +
+                    nowData[i].Plan + "," +
+                    nowData[i].DegreeRequire + "," +
+                    nowData[i].Presuit;
+        }
+        const blob = new Blob([str], {
+            type: "text/plain;charset=utf-8"
+        });
+        FileSaver.saveAs(blob, "data.csv");
+    };
+    const importData = (e: any) => {
+        const file = e.target.files[0];
+        e.target.value = "";
+        if (file) {
+            const fr = new FileReader();
+            fr.readAsBinaryString(file);
+            fr.onload = (e: any) => {
+                const result = e.target.result;
+                // iconv.skipDecodeWarning = true;
+                // const text = iconv.decode(result, "UTF8");
+                Papa.parse(result, {
+                    encoding: "UTF-8",
+                    complete: (rs: any) => {
+                        // console.log(rs);
+                        const arr = newData;
+                        const rowData = [];
+                        for(let i = 1 ; i < rs.data.length ; i++) {
+                            const data2 = rs.data[i];
+                            const obj2 = {
+                                id: data2[0],
+                                Course: data2[1],
+                                Credit: data2[2],
+                                Name: data2[3],
+                                Plan: data2[4],
+                                DegreeRequire: data2[5],
+                                Presuit: data2[6]
+                            };
+                            rowData.push(obj2);
+                            
+                        }
+                        // console.log(rowData, 999);
+                        arr.push({
+                            rowData
+                        });
+                        setNewData(JSON.parse(JSON.stringify(arr)));
+                    }
+                });
+            };
+        }
+    };
+    let nowDragData:any = null;
+    let DropObjIndex:any = -1;
+    let flag = false;
+    const DragStopped = (e: any) => {
+        nowDragData = e.target.__agComponent.rowNode.data;
+        // console.log(e, DropObjIndex);
+        flag = true;
+    };
+    const onMousemove = (e: any) => {
+        DropObjIndex = e.target.closest("div.ag-theme-alpine").dataset.key;
+        // console.log(nowDragData, DropObjIndex, flag);
+        if(flag && DropObjIndex!=-1 && nowDragData){
+            const arr = JSON.parse(JSON.stringify(newData));
+            if(arr[DropObjIndex]) {
+                // console.log(arr, arr[DropObjIndex], 3333);
+                arr[DropObjIndex].rowData.push(JSON.parse(JSON.stringify(nowDragData)));
+            }
+            setNewData(arr);
+            DropObjIndex = -1;
+        }
+        flag = false;
+    };
     return (
-        <div >
+        <div className="app-box" >
             <h1 style = {{textAlign:"center"}}>Plan Course Of Semester</h1>
             <button onClick={()=>setshow(true)} style={{marginLeft:350}}>Make a plan</button>
             
@@ -141,15 +237,15 @@ const App = () => {
                     newData.map((value,index) => 
                         <div key = {index}>
                             
-                            <div className="ag-theme-alpine" style={{height: 400, width: 1000, marginLeft:350}}>
+                            <div onMouseMove={onMousemove} className="ag-theme-alpine" data-key={index} style={{height: 400, width: 1000, marginLeft:350}}>
                                 
-                                <AgGridReact rowData={value.rowData} columnDefs={columns} rowDragManaged={true} animateRows={true}/>
+                                <AgGridReact  onDragStopped={DragStopped}  rowData={value.rowData} columnDefs={columns} rowDragManaged={true} animateRows={true} suppressMoveWhenRowDragging={true} />
                                 
                             </div>
                             
                             <button onClick = {()=>addArow(index)} style={{marginLeft:350}}>AddCourse</button>
                             <button onClick={()=>clearAllCourse(index)}>clear All Course</button>
-                            
+                            <button onClick={()=>exportData(index)} style={{marginLeft:350}}>export</button>
                         </div>
     
                         
@@ -169,6 +265,9 @@ const App = () => {
             }
             {
                 show?<button onClick={()=>clearAllSemester()} style={{marginLeft:350}}>Clear All Semester</button>:null
+            }
+            {
+                show?<button className="file" style={{marginLeft:350}}><input type="file" accept=".csv" onChange={importData} />import</button>: null
             }
             <>
                 <Alert show={show1} variant="success">
@@ -192,3 +291,6 @@ const App = () => {
 };
 
 export default App;
+
+
+
