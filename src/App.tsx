@@ -412,7 +412,7 @@ const App = () => {
                                 newData.map((value,index) => 
                                     <div key = {index} className="my-table" data-key={index}>
                                         
-                                        <div  className="ag-theme-alpine"  style={{height: 400, width: 1000, marginLeft:10}}>
+                                        <div  className="ag-theme-alpine"  style={{height: 400, width: 1400, marginLeft:10}}>
                                             <button onClick={() => onBtnExport(index)}>
                                                 export CSV file
                                             </button>
@@ -454,10 +454,10 @@ const App = () => {
                 <Alert show={show1} variant="success">
                     <Alert.Heading>Hello There!</Alert.Heading>
                     <p>
-                        Thank you for using our website. The current version is the default semester plan, and you can graduate in 4 academic years if things go well. 
-                        If it is different from the actual situation, you need to edit it manually. This site currently offers adding course semesters and deletion functionality.
-                        And you can drag courses in the same table. You can clear all semester and courses.
+                        Thank you for using our website. The site automatically stores specialized courses in computer science. You can use it directly. Other school courses need to be edited and added by users.
+                        But you can save your lessons for next time. Below is a 4-year graduation plan template for your reference.
                     </p>
+                    <a href="https://www.cis.udel.edu/wp-content/uploads/2018/10/COE_MajorSlicks_CISC_2018.pdf" >CISC Major Plan 0</a>
                     <hr />
                     <div className="d-flex justify-content-end">
                         <Button onClick={() => setShow1(false)} variant="outline-success">
