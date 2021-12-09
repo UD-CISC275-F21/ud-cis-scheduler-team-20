@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent} from "react";
 // import type { MouseEvent } from "react";
 import "ag-grid-enterprise";
 import {AgGridReact} from "ag-grid-react";
@@ -7,13 +7,33 @@ import { Alert, Button} from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-
-// import FileSaver from "file-saver";
 import Papa from "papaparse";
+
+
 
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 const App = () => {
+
+    const [newData,setNewData] = useState([
+        {
+            "rowData":[
+                {id:0,Course: "CISC 108", Credit: "3",Name:"Introduction to Computer Science 1",Plan:"Take Care",DegreeRequire:"CISC",Presuit:""},
+            // {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
+            // {id:1,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care",DegreeRequire:"CISC",Presuit:"CISC100"},
+            // {id:2,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care",DegreeRequire:"Other",Presuit:"LAB"},
+            // {id:3,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
+            // {id:4,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care",DegreeRequire:"Other",Presuit:"BRE"},
+            ], 
+        },
+   
+    ]);
+    
+    const [newDataType] = useState([{
+        "rowData":[
+            {id:0,Course: "CISC 108", Credit: "3",Name:"Introduction to Computer Science 1",Plan:"Take Care",DegreeRequire:"CISC",Presuit:""},
+        ], 
+    }]);
 
     const [courses, setCourses] = useState([
         {
@@ -50,25 +70,7 @@ const App = () => {
         nowValue: 0
     }]);
     
-    const [newDataType] = useState([{
-        "rowData":[
-            {id:0,Course: "CISC 108", Credit: "3",Name:"Introduction to Computer Science 1",Plan:"Take Care",DegreeRequire:"CISC",Presuit:""},
-        ], 
-    }]);
-    
-    const [newData,setNewData] = useState([
-        {
-            "rowData":[
-                {id:0,Course: "CISC 108", Credit: "3",Name:"Introduction to Computer Science 1",Plan:"Take Care",DegreeRequire:"CISC",Presuit:""},
-                // {id:0,Course: "EGGG101", Credit: "2",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
-                // {id:1,Course: "CISC108", Credit: "3",Name:"Computer Science108",Plan:"Take Care",DegreeRequire:"CISC",Presuit:"CISC100"},
-                // {id:2,Course: "MATH241", Credit: "4",Name:"Mathematic241",Plan:"Take Care",DegreeRequire:"Other",Presuit:"LAB"},
-                // {id:3,Course: "ENGL101", Credit: "3",Name:"engineer101",Plan:"Take Care",DegreeRequire:"Other",Presuit:"UNIV"},
-                // {id:4,Course: "BRE", Credit: "3",Name:"Breath",Plan:"Take Care",DegreeRequire:"Other",Presuit:"BRE"},
-            ], 
-        },
-       
-    ]);
+
     const [totalCredit, setTotalCredit] = useState(3);
     
     const [show,setshow] = useState(false);
@@ -175,58 +177,6 @@ const App = () => {
         });
     });
     
-
-    function getIndex(abc:typeof newDataType,params: { data: { id: number; Course: string; Credit: string; Name: string; Plan: string; }; }){
-        for (let i=0;i<abc.length;i++){
-            for(let j = 0;j<abc[i].rowData.length;j++){
-                if (abc[i].rowData[j].id==params.data.id){
-                    return [i,j] ;
-                }
-            }
-        }
-    }
-    
-    const actionButton = (params: { data: { id: number; Course: string; Credit: string; Name: string; Plan: string; }; })=>{
-        console.log(newData);
-        const indexNumber = getIndex(newData,params) as number[] ;
-        console.log(indexNumber);
-        console.log("before",newData);
-        const index1 = indexNumber[0];
-        const index = indexNumber[1];
-        console.log(index1);
-        if (indexNumber != null){
-            const newData2 :typeof newDataType= JSON.parse(JSON.stringify(newData));
-            newData2[index1].rowData.splice(index,1);
-            try{
-                setNewData(newData2);
-                console.log("after",newData);
-            }catch(e){
-                console.log(e);
-            }
-            const newData3 :typeof newDataType= JSON.parse(JSON.stringify(newData));
-            console.log("data3",newData3);
-        }       
-    };
-
-    const addArow = (index: number) => {
-        const newCourse = {id:courses.length,Course: "", Credit: "",Name:"",Plan:""};
-        console.log(newCourse);
-        const tmpNewData = JSON.parse(JSON.stringify(newData));
-        tmpNewData[index].rowData.push(newCourse);
-        console.log(tmpNewData[index]);
-        setNewData(tmpNewData);
-        
-    };
-
-    const addAsemester = () =>{
-        const tmpNewData = JSON.parse(JSON.stringify(newData));
-        const newSemester = {rowData:[]};
-        tmpNewData.push(newSemester);
-        setNewData(tmpNewData);
-    };
-
-
-
     const columns = [
         {
             headerName:"course",field:"Course",sortable:true,editable:true, rowDrag:true
@@ -276,6 +226,55 @@ const App = () => {
         },
     ];
 
+    function getIndex(abc:typeof newDataType,params: { data: { id: number; Course: string; Credit: string; Name: string; Plan: string; }; }){
+        for (let i=0;i<abc.length;i++){
+            for(let j = 0;j<abc[i].rowData.length;j++){
+                if (abc[i].rowData[j].id==params.data.id){
+                    return [i,j] ;
+                }
+            }
+        }
+    }
+
+    const actionButton = (params: { data: { id: number; Course: string; Credit: string; Name: string; Plan: string; }; })=>{
+        console.log(newData);
+        const indexNumber = getIndex(newData,params) as number[] ;
+        console.log(indexNumber);
+        console.log("before",newData);
+        const index1 = indexNumber[0];
+        const index = indexNumber[1];
+        console.log(index1);
+        if (indexNumber != null){
+            const newData2 :typeof newDataType= JSON.parse(JSON.stringify(newData));
+            newData2[index1].rowData.splice(index,1);
+            try{
+                setNewData(newData2);
+                console.log("after",newData);
+            }catch(e){
+                console.log(e);
+            }
+            const newData3 :typeof newDataType= JSON.parse(JSON.stringify(newData));
+            console.log("data3",newData3);
+        }       
+    };
+
+    const addArow = (index: number) => {
+        const newCourse = {id:courses.length,Course: "", Credit: "",Name:"",Plan:""};
+        console.log(newCourse);
+        const tmpNewData = JSON.parse(JSON.stringify(newData));
+        tmpNewData[index].rowData.push(newCourse);
+        console.log(tmpNewData[index]);
+        setNewData(tmpNewData);
+        
+    };
+
+    const addAsemester = () =>{
+        const tmpNewData = JSON.parse(JSON.stringify(newData));
+        const newSemester = {rowData:[]};
+        tmpNewData.push(newSemester);
+        setNewData(tmpNewData);
+    };
+
     const clearAllSemester=()=>{
         const newData1 = [{rowData:[]}];
         setNewData(newData1);
@@ -302,7 +301,33 @@ const App = () => {
     };
     
     const [show1, setShow1] = useState(true);
+
+    let nowDragData:Element;
+    let DropObjIndex = -1;
+    let flag = false;
     
+    const DragStarted = (e: DragStartedEvent) => {
+        if(e.target) {
+            const target = e.target as never;
+            nowDragData = target["__agComponent"]["rowNode"]["data"];
+        }
+        flag = true;
+    };
+    
+    const [gridApi, setGridApi] = useState([]);
+    
+    const onGridReady = (params: GridReadyEvent, index: number) => {
+        // console.log(params,index, 9999);
+        const arr = [...gridApi];
+        arr[index] = params.api as never;
+        setGridApi(arr);
+    };
+    
+    const onBtnExport = (index: number) => {
+        const api = gridApi[index] as GridApi;
+        api.exportDataAsCsv();
+    };
+
     const importData = (e: ChangeEvent<HTMLInputElement>) => {
         // console.log(e.target.files);
         if(e.target.files) {
@@ -344,32 +369,6 @@ const App = () => {
                 };
             }
         }
-    };
-    
-    let nowDragData:Element;
-    let DropObjIndex = -1;
-    let flag = false;
-    
-    const DragStarted = (e: DragStartedEvent) => {
-        if(e.target) {
-            const target = e.target as never;
-            nowDragData = target["__agComponent"]["rowNode"]["data"];
-        }
-        flag = true;
-    };
-    
-    const [gridApi, setGridApi] = useState([]);
-    
-    const onGridReady = (params: GridReadyEvent, index: number) => {
-        // console.log(params,index, 9999);
-        const arr = [...gridApi];
-        arr[index] = params.api as never;
-        setGridApi(arr);
-    };
-    
-    const onBtnExport = (index: number) => {
-        const api = gridApi[index] as GridApi;
-        api.exportDataAsCsv();
     };
    
     return (
